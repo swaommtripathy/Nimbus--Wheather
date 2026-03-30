@@ -1,0 +1,182 @@
+.card {
+  position: relative;
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: transform 0.22s cubic-bezier(0.4,0,0.2,1), box-shadow 0.22s ease;
+  overflow: hidden;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.card:hover .hoverOverlay {
+  opacity: 1;
+}
+
+.removeBtn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(0,0,0,0.3);
+  color: rgba(255,255,255,0.6);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  opacity: 0;
+  z-index: 2;
+}
+
+.card:hover .removeBtn { opacity: 1; }
+.removeBtn:hover { background: rgba(252,129,129,0.3); color: #fc8181; }
+
+.liveRow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 16px;
+}
+
+.updatedAt {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.02em;
+}
+
+.main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.icon {
+  font-size: 42px;
+  filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
+  animation: float 5s ease-in-out infinite;
+}
+
+.cityName {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.3px;
+}
+
+.country {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  margin-top: 2px;
+  font-family: var(--font-mono);
+}
+
+.temp {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -2px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.condition {
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  text-transform: capitalize;
+  margin-bottom: 20px;
+}
+
+.stats {
+  display: flex;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.stat {
+  flex: 1;
+  background: rgba(0,0,0,0.2);
+  border-radius: 10px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255,255,255,0.07);
+}
+
+.statLabel {
+  display: block;
+  font-size: 10px;
+  color: rgba(255,255,255,0.45);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+
+.statValue {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  font-family: var(--font-display);
+}
+
+.hoverOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 24px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.4));
+  font-size: 13px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+/* Skeleton */
+.skeleton {
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  min-height: 220px;
+}
+
+/* Error */
+.errorCard {
+  position: relative;
+  border-radius: var(--radius-xl);
+  padding: 24px;
+  background: rgba(252,129,129,0.06);
+  border: 1px solid rgba(252,129,129,0.2);
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.errorMsg {
+  font-size: 13px;
+  color: rgba(252,129,129,0.7);
+}
