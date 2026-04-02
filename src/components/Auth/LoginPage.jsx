@@ -200,6 +200,10 @@ export default function LoginPage() {
         }
 
         console.log('[AUTH] Email verified, user logged in successfully');
+        
+        // Reload user to ensure latest email verification status
+        await auth.currentUser?.reload();
+        
         toast.success('Welcome back! 🎉', {
           duration: 3000,
           icon: '✓',

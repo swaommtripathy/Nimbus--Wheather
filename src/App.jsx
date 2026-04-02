@@ -67,7 +67,15 @@ export default function App() {
 
   // Subscribe to Firebase auth state once on mount
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (firebaseUser) => {
+    const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        // Reload user to get latest email verification status
+        try {
+          await firebaseUser.reload();
+        } catch (err) {
+          console.error('[APP] Error reloading user:', err);
+        }
+      }
       dispatch(setUser(firebaseUser));
     });
     return unsub; // cleanup listener on unmount
