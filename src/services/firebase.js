@@ -8,6 +8,15 @@ const firebaseConfig = {
   appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
+console.log('[FIREBASE] Initializing with config:', {
+  projectId: firebaseConfig.projectId,
+  authDomain: firebaseConfig.authDomain,
+  apiKey: firebaseConfig.apiKey ? '***' : 'MISSING',
+  appId: firebaseConfig.appId ? '***' : 'MISSING',
+});
+
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
+
+console.log('[FIREBASE] Initialized successfully with project:', firebaseConfig.projectId);

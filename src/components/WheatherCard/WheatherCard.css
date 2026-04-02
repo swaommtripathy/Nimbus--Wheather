@@ -1,0 +1,154 @@
+/* ─── WeatherCard.css ─────────────────────────────────────────────────────── */
+
+.weather-card {
+  background: linear-gradient(135deg, #1e1e2e 0%, #24273a 100%);
+  border: 1px solid rgba(137, 180, 250, 0.15);
+  border-radius: 20px;
+  padding: 2rem;
+  color: #cdd6f4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.35),
+    0 1px 0 rgba(255, 255, 255, 0.04) inset;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  max-width: 360px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.weather-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.45),
+    0 1px 0 rgba(255, 255, 255, 0.06) inset;
+}
+
+/* ─── City Name ──────────────────────────────────────────────────────────── */
+
+.weather-card h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #cdd6f4;
+  margin: 0;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+/* ─── Weather Icon ───────────────────────────────────────────────────────── */
+
+.weather-card img {
+  width: 96px;
+  height: 96px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(137, 180, 250, 0.3));
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% { transform: translateY(0); }
+  50%  { transform: translateY(-6px); }
+}
+
+/* ─── Temperature ────────────────────────────────────────────────────────── */
+
+.weather-card .temp {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1;
+  margin: 0;
+  background: linear-gradient(135deg, #89b4fa, #b4befe);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+/* ─── Description ────────────────────────────────────────────────────────── */
+
+.weather-card .desc {
+  font-size: 1rem;
+  color: #a6adc8;
+  margin: 0;
+  text-transform: capitalize;
+  letter-spacing: 0.04em;
+}
+
+/* ─── Detail Pills ───────────────────────────────────────────────────────── */
+
+.weather-card .details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+  width: 100%;
+}
+
+.weather-card .details span {
+  background: rgba(137, 180, 250, 0.08);
+  border: 1px solid rgba(137, 180, 250, 0.18);
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
+  color: #89b4fa;
+  white-space: nowrap;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.weather-card .details span:hover {
+  background: rgba(137, 180, 250, 0.16);
+  border-color: rgba(137, 180, 250, 0.35);
+}
+
+/* ─── Loading Skeleton ───────────────────────────────────────────────────── */
+
+.weather-card.skeleton {
+  pointer-events: none;
+}
+
+.weather-card.skeleton h2,
+.weather-card.skeleton .temp,
+.weather-card.skeleton .desc,
+.weather-card.skeleton .details span {
+  background: linear-gradient(90deg, #313244 25%, #3d3f5c 50%, #313244 75%);
+  background-size: 200% 100%;
+  border-radius: 6px;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 1.5s infinite;
+}
+
+.weather-card.skeleton img {
+  background: linear-gradient(90deg, #313244 25%, #3d3f5c 50%, #313244 75%);
+  background-size: 200% 100%;
+  border-radius: 50%;
+  filter: none;
+  animation: shimmer 1.5s infinite, none;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ─── Responsive ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+  .weather-card {
+    padding: 1.5rem 1.25rem;
+    border-radius: 16px;
+  }
+
+  .weather-card .temp {
+    font-size: 2.75rem;
+  }
+
+  .weather-card img {
+    width: 72px;
+    height: 72px;
+  }
+}

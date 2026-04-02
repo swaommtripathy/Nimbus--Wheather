@@ -1,131 +1,406 @@
+/* ─── LoginPage.module.css ───────────────────────────────────────────────────
+   Clean, modern dark auth UI. Cohesive with the Nimbus dashboard palette.
+   No neon, no clutter — refined depth through subtle borders and spacing.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+/* ── Page ─────────────────────────────────────────────────────────────────── */
 .page {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 1.5rem;
+  background: #07090f;
   position: relative;
   overflow: hidden;
+  font-family: 'DM Sans', system-ui, sans-serif;
 }
 
-.backdrop {
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 30% 20%, rgba(99, 179, 237, 0.08) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 70% 80%, rgba(79, 209, 197, 0.06) 0%, transparent 60%);
+/* Soft ambient blobs — subtle, not distracting */
+.blob1, .blob2 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  opacity: 0.45;
+}
+.blob1 {
+  width: 500px; height: 500px;
+  top: -120px; left: -100px;
+  background: radial-gradient(circle, rgba(56, 110, 212, 0.18), transparent 70%);
+  animation: drift 12s ease-in-out infinite alternate;
+}
+.blob2 {
+  width: 400px; height: 400px;
+  bottom: -80px; right: -60px;
+  background: radial-gradient(circle, rgba(20, 184, 166, 0.12), transparent 70%);
+  animation: drift 16s ease-in-out infinite alternate-reverse;
+}
+@keyframes drift {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(30px, 20px); }
+}
+
+/* ── Card ─────────────────────────────────────────────────────────────────── */
+.card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 424px;
+  background: #0e1117;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 2.25rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.6), 0 0 0 0.5px rgba(255,255,255,0.04) inset;
+  animation: riseIn 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.99); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);    }
+}
+
+/* ── Brand ────────────────────────────────────────────────────────────────── */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brandMark {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, #2563eb, #0ea5e9);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+}
+.brandName {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  letter-spacing: -0.02em;
+}
+
+/* ── Heading ──────────────────────────────────────────────────────────────── */
+.headingGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.heading {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin: 0;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+.sub {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ── Tabs ─────────────────────────────────────────────────────────────────── */
+.tabs {
+  position: relative;
+  display: flex;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 4px;
+  gap: 0;
+}
+.tab {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  background: none;
+  border: none;
+  border-radius: 8px;
+  padding: 9px 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #64748b;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  letter-spacing: 0.01em;
+}
+.tab:hover { color: #94a3b8; }
+.tabActive  { color: #f1f5f9; }
+.tabIndicator {
+  position: absolute;
+  top: 4px; bottom: 4px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  transition: left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
 }
 
-.card {
-  position: relative;
-  width: 100%;
-  max-width: 420px;
-  background: rgba(13, 17, 32, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 28px;
-  padding: 48px 40px;
-  backdrop-filter: blur(20px);
-  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(99, 179, 237, 0.05);
-}
-
-.logoWrap {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 16px;
-}
-
-.logoIcon {
-  font-size: 40px;
-  animation: float 4s ease-in-out infinite;
-}
-
-.logoText {
-  font-family: var(--font-display);
-  font-size: 42px;
-  font-weight: 800;
-  background: linear-gradient(135deg, #f0f4ff 30%, #63b3ed 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: -1px;
-}
-
-.tagline {
-  font-size: 15px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 28px;
-}
-
-.features {
+/* ── Form ─────────────────────────────────────────────────────────────────── */
+.form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-bottom: 36px;
+  gap: 1rem;
 }
 
-.feature {
+/* ── Field ────────────────────────────────────────────────────────────────── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #94a3b8;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  user-select: none;
+}
+
+/* Input wrapper */
+.inputWrap {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  color: var(--text-secondary);
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 10px;
+  transition: border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+}
+.inputWrap:focus-within {
+  background: rgba(255, 255, 255, 0.055);
+  border-color: rgba(96, 165, 250, 0.5);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+.hasError {
+  border-color: rgba(239, 68, 68, 0.55) !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08) !important;
+}
+.hasValid {
+  border-color: rgba(34, 197, 94, 0.35);
 }
 
-.featureDot {
-  width: 6px;
-  height: 6px;
-  background: var(--accent-cyan);
-  border-radius: 50%;
+/* Input itself */
+.input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  outline: none;
+  color: #f1f5f9;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.9rem;
+  padding: 11px 14px;
+  caret-color: #60a5fa;
+}
+.input::placeholder { color: #334155; font-size: 0.85rem; }
+
+/* Right slot (eye toggle) */
+.inputRight {
+  display: flex;
+  align-items: center;
+  padding-right: 6px;
   flex-shrink: 0;
-  box-shadow: 0 0 8px rgba(79, 209, 197, 0.5);
 }
 
-.googleBtn {
-  width: 100%;
+/* Valid checkmark */
+.checkIcon {
+  display: flex;
+  align-items: center;
+  padding-right: 12px;
+  flex-shrink: 0;
+}
+
+/* Eye button */
+.eyeBtn {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  padding: 14px 24px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 14px;
-  color: var(--text-primary);
-  font-family: var(--font-display);
-  font-size: 15px;
+  width: 34px; height: 34px;
+  background: none;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  color: #475569;
+  transition: color 0.15s, background 0.15s;
+  flex-shrink: 0;
+}
+.eyeBtn:hover {
+  color: #94a3b8;
+  background: rgba(255,255,255,0.05);
+}
+
+/* Error text */
+.errorText {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.775rem;
+  color: #f87171;
+  margin: 0;
+  animation: errIn 0.22s ease both;
+}
+.errorText svg { flex-shrink: 0; color: #f87171; }
+@keyframes errIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Password strength ────────────────────────────────────────────────────── */
+.strengthRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: -4px;
+}
+.strengthSegs {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+}
+.seg {
+  flex: 1;
+  height: 3px;
+  border-radius: 99px;
+  background: rgba(255,255,255,0.08);
+  transition: background 0.3s ease;
+}
+.strengthText {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  min-width: 56px;
+  text-align: right;
+  transition: color 0.3s ease;
+}
+
+/* ── Forgot row ───────────────────────────────────────────────────────────── */
+.forgotRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -4px;
+}
+.forgotLink {
+  background: none;
+  border: none;
+  font-size: 0.8rem;
+  color: #60a5fa;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s;
+}
+.forgotLink:hover { color: #93c5fd; }
+
+/* ── Primary button ───────────────────────────────────────────────────────── */
+.primaryBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  transition: var(--transition);
   letter-spacing: 0.01em;
+  transition: opacity 0.15s, transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+  margin-top: 0.25rem;
+}
+.primaryBtn:hover:not(:disabled) {
+  opacity: 0.92;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+}
+.primaryBtn:active:not(:disabled) { transform: translateY(0); }
+.primaryBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Button spinner */
+.btnSpinner {
+  width: 15px; height: 15px;
+  border: 2px solid rgba(255,255,255,0.25);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Divider ──────────────────────────────────────────────────────────────── */
+.orRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.75rem;
+  color: #334155;
+  letter-spacing: 0.05em;
+}
+.orRow::before, .orRow::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,0.06);
 }
 
+/* ── Google button ────────────────────────────────────────────────────────── */
+.googleBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  color: #cbd5e1;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+}
 .googleBtn:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(255,255,255,0.18);
   transform: translateY(-1px);
 }
+.googleBtn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-.googleBtn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.spinner {
-  width: 18px;
-  height: 18px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-  border-top-color: var(--accent-blue);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-.disclaimer {
-  margin-top: 20px;
-  font-size: 12px;
-  color: var(--text-muted);
+/* ── Legal ────────────────────────────────────────────────────────────────── */
+.legal {
+  font-size: 0.72rem;
+  color: #334155;
   text-align: center;
-  line-height: 1.5;
+  margin: -0.5rem 0 0;
+  line-height: 1.6;
+}
+.legalLink {
+  background: none;
+  border: none;
+  font-size: inherit;
+  color: #475569;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.15s;
+  padding: 0;
+}
+.legalLink:hover { color: #94a3b8; }
+
+/* ── Responsive ───────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .card { padding: 1.75rem 1.25rem 1.5rem; border-radius: 16px; }
+  .heading { font-size: 1.25rem; }
 }
