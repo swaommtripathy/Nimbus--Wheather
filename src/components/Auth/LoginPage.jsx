@@ -1,4 +1,5 @@
 import React, { useState, useCallback ,useEffect} from 'react';
+import { useDispatch } from 'react-redux';
 import {
   signInWithPopup,
   signInWithEmailAndPassword,
@@ -7,6 +8,7 @@ import {
   sendEmailVerification,
 } from 'firebase/auth';
 import { auth, googleProvider } from '../../services/firebase';
+import { setUser } from '../../store/slices/authSlice';
 import toast from 'react-hot-toast';
 import styles from './LoginPage.module.css';
 
@@ -127,6 +129,7 @@ const FB_ERRORS = {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function LoginPage() {
+  const dispatch = useDispatch();
   const [page, setPage] = useState('login'); 
   // 'login' | 'register' | 'verify'
   const isLogin = page === 'login';
@@ -203,6 +206,10 @@ export default function LoginPage() {
         
         // Reload user to ensure latest email verification status
         await auth.currentUser?.reload();
+        
+        // Dispatch user to Redux to trigger immediate re-render in App.jsx
+        dispatch(setUser(auth.currentUser));
+        console.log('[AUTH] Redux state updated, dashboard should render now');
         
         toast.success('Welcome back! 🎉', {
           duration: 3000,

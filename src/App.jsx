@@ -72,6 +72,7 @@ export default function App() {
         // Reload user to get latest email verification status
         try {
           await firebaseUser.reload();
+          console.log('[APP] User reloaded. Email verified:', firebaseUser.emailVerified);
         } catch (err) {
           console.error('[APP] Error reloading user:', err);
         }
@@ -84,13 +85,18 @@ export default function App() {
   if (loading) return <AuthLoader />;
   
   // Check if user exists and email is verified
-  if (!user) return <LoginPage />;
+  if (!user) {
+    console.log('[APP] No user, showing LoginPage');
+    return <LoginPage />;
+  }
   
   // If user exists but email is not verified, show login page with verify message
-  if (auth.currentUser && !auth.currentUser.emailVerified) {
+  if (!user.emailVerified) {
+    console.log('[APP] User exists but email not verified. Email:', user.email, 'Verified:', user.emailVerified);
     return <LoginPage />;
   }
 
+  console.log('[APP] User verified, showing dashboard');
   return (
     // Top-level boundary catches any catastrophic render errors
     <ErrorBoundary>
